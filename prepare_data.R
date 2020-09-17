@@ -1,14 +1,16 @@
-
-library("Mass")
-library('ggplot')
+#library("Mass")
+library('ggplot2')
 
 #categorical data please use factor type
 # numerical data please use numeric type
 
 #example_data 'iris'
+main <- function()
+{
+  data('iris')
+  plot_sep(iris)
+}
 
-data('iris')
-iris
 
 
 #gets all variables type
@@ -45,28 +47,41 @@ type_col<- function(df)
 
 # input: dataframe, output:plot
 
-plot(df)
+plot_sep <-function(df)
 {
-  num_col = type_col(df)[ 'numeric' ]
-  cat_col = type_col(df)[ 'categorical' ]
+  num_col = type_col(df)$numeric
+  cat_col = type_col(df)$categorical
   
-  # single variable: num - boxplot 
-  
+  # single variable: num - boxplot, histogram cat - barchart, 
+  for( i in c(1:length(num_col)))
+  {
+    p <- ggplot(data = df, aes_string( y = colnames(df)[num_col[i]] )) + 
+          geom_boxplot() + ggtitle( "Numerical" )
+    print(p)
+    p <- ggplot(data = df, aes_string( x = colnames(df)[num_col[i]] ))+ 
+          geom_histogram() + ggtitle( "Numerical" )
+    print(p)
+  }
+
+  for( i in c(1:length(cat_col)))
+  {
+    p <- ggplot(data = df, aes_string( x = colnames(df)[cat_col[i]] )) +
+      geom_bar() + ggtitle( "Categorical" )
+    print(p)
+   
+  }
   
   # muliti-variable
     #pair plot
   
-  
-  
-  return
 }
 
 
 
 # 
-data_summary()
+data_summary<-function()
 {
-   return 
+  return()
 }
 
 
@@ -74,24 +89,23 @@ data_summary()
 # sample
 
 
-train_test_split()
+train_test_split<-function()
 {
-  
-  
-  return 
+
+  return()
 }
 
 
   
   
 #  
-cross_validation()
+cross_validation<-function()
 {
   
-  return
+  return()
 }                       
                        
-  
+main()
 
   
   
